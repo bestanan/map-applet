@@ -4,7 +4,9 @@
 *示意图*  
 *图一：地图定位首页*  
 
-![image](https://github.com/vedaAngie/wechat-map-applet-angie/blob/master/images/example.PNG)  
+![image](https://github.com/vedaAngie/wechat-map-applet-angie/blob/master/images/example.PNG)    
+  
+  
 *图二：地图搜索列表页*  
 
 ![image](https://github.com/vedaAngie/wechat-map-applet-angie/blob/master/images/example2.png)
