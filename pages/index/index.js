@@ -59,34 +59,29 @@ Page({
         "placeLongitude": 114.02039,
         "placeLatitude": 22.53639
       }
-    ]
+    ],
+    address1: ''
   },
 
   // 生命周期函数--监听页面加载
-  // onLoad: function() {
-  //   // console.log(this.getMarkersArr());
-  // },
-  
-  onShow: function(){
+  onLoad: function() {
     // 使用 wx.createMapContext 获取 map 上下文
     this.mapCtx = wx.createMapContext('map')
     var that = this;
-    console.log(1111111111)
+
     // 调用微信内部获取位置 默认为wsg84 精确为gcj02
     // map 组件使用的经纬度是火星坐标系，调用 wx.getLocation 接口需要指定 type 为 gcj02
     wx.getLocation({
       type: 'gcj02',
       success: function (res) {
-        console.log(222222)
-        console.log('res111', res)
-        var latitude = res.latitude
-        var longitude = res.longitude
+        var lng = res.longitude
+        var lat = res.latitude
         that.setData({
-          latitude: latitude,
-          longitude: longitude,
+          longitude: lng,
+          latitude: lat,
           markers: that.getMarkersArr()
         })
-        that.getPoiList(longitude, latitude);
+        that.getPoiList(lng, lat);
       },
       fail: function(res) {
         wx.showModal({
@@ -107,16 +102,17 @@ Page({
       }
     })
   },
-
+  
+  onShow: function(){
+    
+  },
   // 生命周期函数--监听页面初次渲染完成
   onReady: function() {
     // console.log(this.getMarkersArr());
   },
 
-
-
-  //获取中间点经纬度
-  getLngLat: function() {
+  //获取中心点经纬度
+  getCenterLngLat: function() {
     let that = this;
     that.mapCtx = wx.createMapContext('map');
     that.mapCtx.getCenterLocation({
@@ -126,18 +122,19 @@ Page({
     })
   },
 
-  //逆地址解析（坐标转地址）
-  getPoiList: function(longitude, latitude) {
-    // console.log('经度：', longitude, '纬度', latitude);
+  //逆地址解析（坐标转地址） 展示目标地详细地址
+  getPoiList: function(lng, lat) {
+    // console.log('经度：', lng, '纬度', latitude);
     let that = this;
     qqmapsdk.reverseGeocoder({
       location: {
-        latitude: latitude,
-        longitude: longitude
+        latitude: lat,
+        longitude: lng
       },
       get_poi: 1, //是否返回周边POI列表：1.返回；0不返回(默认)
-      poi_options: 'policy=2;radius=3000;page_size=20;page_index=1',
+      poi_options: 'radius=3000;page_size=20;page_index=1;policy=1',
       success: function(res) {
+        console.log('res333', res)
         that.setData({
           bluraddress: res.result.formatted_addresses.recommend,
           address: res.result.address,
@@ -153,85 +150,24 @@ Page({
   },
 
   //地址解析（地址转坐标）
-  getAddress: function(e) {
-    console.log('000000000')
-    let that = this;
-    let address = e.currentTarget.dataset.address;
-    // console.log('address', e.currentTarget.dataset.address)
-    qqmapsdk.geocoder({
-      address: '深圳市' + address,
-      success: function(res) {
-        // console.log('结果', res.result.location);
-        let lat = res.result.location.lat;
-        let lng = res.result.location.lng;
-        that.setData({
-          isHidden: true,
-          latitude: lat,
-          longitude: lng
-        })
-        that.getPoiList(lng, lat)
-      },
-      fail: function(res) {
-          console.log(res);
-      },
-      complete: function(res) {
-          console.log(res);
-      }
-    });
-  },
-
-  //搜索地点等关键字
-  searchAddress: function(e) {
-    let that = this;
-    if(e) {
-      var value = e.detail.value;
-      if(value != '') {
-        that.setData({
-          searchValue: value,
-          isHidden: false
-        })
-        console.log('value', value)
-        qqmapsdk.getSuggestion({
-          keyword: value,
-          region: '深圳市',
-          region_fix: 1,
-          success: function(res) {
-              console.log('搜索结果',res.data);
-              that.setData({
-                result: res.data
-              })
-          },
-          fail: function(res) {
-              console.log(res);
-          },
-          complete: function(res) {
-              // console.log(res);
-          }
-        });
-      }
-    }
-  },
-
-  // 清空搜索框内容
-  searchClear: function(e) {
+  getAddress: function(lat, lng) {
+    // let address = e.currentTarget.dataset.address;
     let that = this;
     that.setData({
-      searchValue: ''
+      isHidden: true,
+      latitude: lat,
+      longitude: lng
     })
+    that.getPoiList(lng, lat)
   },
 
-  // 点击取消 隐藏搜索列表
-  cancel() {
-    let that = this;
-    that.setData({
-      isHidden: true
-    })
-  },
+
+ 
   
-  // 视野发生变化时触发 获取中间点（即用户选择的位置）
+  // 视野发生变化时触发 获取中心点（即用户选择的位置）
   regionchange(e) {
     if(e.type == 'end') {
-      this.getLngLat();
+      this.getCenterLngLat();
     }
   },
 
@@ -310,6 +246,17 @@ Page({
 
   mapchange(e) {
     // console.log(e)
+  },
+
+  bindInput() {
+    let { latitude, longitude, city } = this.data;
+    let url = '/pages/search/search';
+    // wx.navigateTo({ url });
+    // let url = `/pages/inputtip/inputtip?city=${city}&lonlat=${longitude},${latitude}`;
+    wx.navigateTo({ url });
+    // wx.redirectTo({
+    //   url: "/pages/search/search",
+    // })
   }
 })
 

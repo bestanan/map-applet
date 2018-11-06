@@ -5,16 +5,9 @@
     <view class="search-bar_form">
       <view class="search-bar_box">
         <icon class="icon-search_in-box" type="search" size="14"></icon>
-        <input type="text" class="search-bar_input" placeholder="查找地点、公交、地铁" value="{{searchValue}}" bindinput='searchAddress' bindconfirm="SearchConfirm" />
-        <view class="icon-clear" wx:if="{{searchValue.length > 0}}" bindtap="searchClear">
-          <icon type="clear" size="14"></icon>
-        </view>
+        <input type="text" class="search-bar_input" placeholder="查找地点、公交、地铁" value="{{searchValue}}" bindtouchstart="bindInput"  bindconfirm="SearchConfirm" />
       </view>
     </view>
-    <!-- <view class="search-bar_cancel-btn" bindtap="SearchConfirm">
-      <text wx:if="{{SearchData.value.length>0}}" data-key='search'>搜索</text>
-      <text wx:else data-key='back'>返回</text>
-    </view> -->
   </view>
   <!-- 搜索结束 -->
   <!-- 地图显示开始 -->
@@ -49,23 +42,6 @@
       <cover-view class="address-btn" bindtap="">打卡</cover-view>
     </cover-view>
 
-    <!-- 展示搜索列表 -->
-    <cover-view class="searchlist" wx:if="{{!isHidden}}">
-      <cover-view class="coverer">
-        <cover-view class="destination" wx:for="{{result}}" wx:key="{{item.id}}" bindtap="getAddress" data-address="{{item.address}}" >
-          <cover-view class="destination-content">
-            <cover-view class="content-image">
-            <cover-image src="../../images/location.png"></cover-image>
-          </cover-view>
-            <cover-view class="content">
-              <cover-view class="content-name">{{item.title}}</cover-view>
-              <cover-view class="content-detail">{{item.address}}</cover-view>
-            </cover-view>
-          </cover-view> 
-        </cover-view>
-      </cover-view>
-      <cover-view class="cancel" bindtap="cancel">取消</cover-view>
-    </cover-view>
   </map>
   <!-- 地图显示结束 -->
 </view>
