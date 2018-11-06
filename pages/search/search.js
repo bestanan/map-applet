@@ -4,10 +4,12 @@ var qqmapsdk = new QQMapWX({
 });
 Page({
   data: {
+    hidden: true,
     searchStorage: []
   },
   onLoad: function () {
-    console.log('searchStorage11', this.data.searchStorage);
+    let that = this;
+    that.getSearchStorage();
   },
 
   // 搜索地点等关键字
@@ -56,15 +58,13 @@ Page({
 
   getAddress: function (e) {
     let dataset = e.currentTarget.dataset;
+    let id = dataset.id;
     let title = dataset.title;
     let address = dataset.address;
     let location = dataset.location;
     let lat = location.lat;
     let lng = location.lng; 
-    console.log(title, address, lat, lng)
-    this.setSearchStorage(title, address, lat, lng);
-    // console.log('lat', lat);
-    // console.log('lng', lng);
+    this.setSearchStorage(id, title, address, lat, lng);
     let url = '/pages/index/index';
     let pages = getCurrentPages();
     let prevPage = pages[pages.length - 2];  //上一个页面
@@ -72,14 +72,14 @@ Page({
     wx.navigateBack({
       delat: delat
     });
-    // prevPage.getAddress(lat, lng);
+    prevPage.getAddress(lat, lng);
   },
 
-
-  //搜索历史记录写入缓存
-  setSearchStorage: function(title, address, lat, lng) {
+  //写入缓存-搜索历史记录
+  setSearchStorage: function(id, title, address, lat, lng) {
     let that = this;
     let obj = {
+      id: id,
       title: title,
       address: address,
       location: {
@@ -89,10 +89,25 @@ Page({
     }
     let searchStorage = that.data.searchStorage;
     searchStorage.push(obj);
-    wx.setStorageSync('searchHistory', searchStorage);
-    console.log('searchStorage', searchStorage);
+    wx.setStorageSync('history', searchStorage);
   },
 
-  //搜索历史记录获取缓存
-  // getSearchStorage: function()
+  //获取缓存-搜索历史记录
+  getSearchStorage: function() {
+    let that = this;
+    wx.getStorage({
+      key: 'history',
+      success (res) {
+        let data = res.data;
+        if(data.length > 0) {
+          that.setData({
+            hidden: false,
+            searchStorage: data,
+            result: data
+          })
+        }
+        console.log('history', data)
+      } 
+    })
+  }
 })

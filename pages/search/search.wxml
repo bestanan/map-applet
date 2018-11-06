@@ -14,7 +14,7 @@
   <input type="text" placeholder="搜索" value="{{searchValue}}" bindinput="bindInput" />
 </view> -->
 <view class="searchList">
-  <view class="list" wx:for="{{result}}" wx:key="{{item.id}}" bindtap="getAddress" data-title="{{item.title}}" data-address="{{item.address}}" data-location="{{item.location}}" >
+  <view class="list" wx:for="{{result}}" wx:key="{{item.id}}" bindtap="getAddress" data-id="{{item.id}}" data-title="{{item.title}}" data-address="{{item.address}}" data-location="{{item.location}}" >
     <view class="list-content">
       <view class="image">
         <image class="" src="../../images/location0.png"></image>
@@ -25,5 +25,8 @@
       </view>
     </view>
   </view>
+</view>
+<view class='history-clear' wx:if="{{!hidden}}">
+  <label>清除历史纪录</label>
 </view>
 

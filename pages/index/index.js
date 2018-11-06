@@ -161,8 +161,53 @@ Page({
     that.getPoiList(lng, lat)
   },
 
+  //搜索地点等关键字
+  searchAddress: function(e) {
+    let that = this;
+    if(e) {
+      var value = e.detail.value;
+      if(value != '') {
+        that.setData({
+          searchValue: value,
+          isHidden: false
+        })
+        console.log('value', value)
+        qqmapsdk.getSuggestion({
+          keyword: value,
+          region: '深圳市',
+          region_fix: 1,
+          success: function(res) {
+              console.log('搜索结果',res.data);
+              that.setData({
+                result: res.data
+              })
+          },
+          fail: function(res) {
+              console.log(res);
+          },
+          complete: function(res) {
+              // console.log(res);
+          }
+        });
+      }
+    }
+  },
 
- 
+  // 清空搜索框内容
+  searchClear: function(e) {
+    let that = this;
+    that.setData({
+      searchValue: ''
+    })
+  },
+
+  // 点击取消 隐藏搜索列表
+  cancel() {
+    let that = this;
+    that.setData({
+      isHidden: true
+    })
+  },
   
   // 视野发生变化时触发 获取中心点（即用户选择的位置）
   regionchange(e) {
