@@ -16,6 +16,9 @@ Page({
   bindSearch: function(e) {
     let that = this;
     if(e) {
+      that.setData({
+        hidden: true,
+      })
       var value = e.detail.value;
       if(value != '') {
         qqmapsdk.getSuggestion({
@@ -31,9 +34,6 @@ Page({
           },
           fail: function(res) {
             console.log(res);
-          },
-          complete: function(res) {
-            // console.log(res);
           }
         });
       }
@@ -100,13 +100,14 @@ Page({
       success (res) {
         let data = res.data;
         if(data.length > 0) {
+          let uniqueData = that.unique(data)
+          console.log('history', uniqueData)
           that.setData({
             hidden: false,
-            searchStorage: data,
-            result: data
+            searchStorage: uniqueData,
+            result: uniqueData
           })
         }
-        console.log('history', data)
       } 
     })
   },
@@ -135,11 +136,24 @@ Page({
               console.log('清除缓存失败', res)
             }
           })
-          console.log('用户点击确定')
         } else if (res.cancel) {
           console.log('用户点击取消')
         }
       }
     })
+  },
+
+  //数组去重
+  unique: function(data) {
+    let obj = {};
+    let newArr = [];
+    //通过id唯一去重
+    for(let i=0, length = data.length; i < length; i++){
+      obj[data[i].id] = data[i];
+    }
+    for(let item in obj) {
+      newArr.push(obj[item]);
+    }
+    return newArr;
   }
 })
