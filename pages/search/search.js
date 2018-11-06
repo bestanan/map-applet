@@ -5,6 +5,7 @@ var qqmapsdk = new QQMapWX({
 Page({
   data: {
     hidden: true,
+    searchValue: '',
     searchStorage: []
   },
   onLoad: function () {
@@ -12,14 +13,15 @@ Page({
     that.getSearchStorage();
   },
 
-  // 搜索地点等关键字
+  // 搜索
   bindSearch: function(e) {
     let that = this;
     if(e) {
+      let value = e.detail.value;
       that.setData({
         hidden: true,
+        searchValue: value
       })
-      var value = e.detail.value;
       if(value != '') {
         qqmapsdk.getSuggestion({
           keyword: value,
@@ -40,22 +42,15 @@ Page({
     }
   },
 
-  // // 清空搜索框内容
-  // searchClear: function(e) {
-  //   let that = this;
-  //   that.setData({
-  //     searchValue: ''
-  //   })
-  // },
+  // 清空搜索框内容
+  searchClear: function(e) {
+    let that = this;
+    that.setData({
+      searchValue: ''
+    })
+  },
 
-  // // 点击取消 隐藏搜索列表
-  // cancel() {
-  //   let that = this;
-  //   that.setData({
-  //     isHidden: true
-  //   })
-  // },
-
+  // 点击列表 获取地址等详细信息
   getAddress: function (e) {
     let dataset = e.currentTarget.dataset;
     let id = dataset.id;
@@ -65,7 +60,6 @@ Page({
     let lat = location.lat;
     let lng = location.lng; 
     this.setSearchStorage(id, title, address, lat, lng);
-    let url = '/pages/index/index';
     let pages = getCurrentPages();
     let prevPage = pages[pages.length - 2];  //上一个页面
     let delat = pages.length + 1;
@@ -73,6 +67,10 @@ Page({
       delat: delat
     });
     prevPage.getAddress(lat, lng);
+    // let url = '/pages/index/index';
+    // wx.reLaunch({
+    //   url: url
+    // })
   },
 
   //写入缓存-搜索历史记录
@@ -100,12 +98,12 @@ Page({
       success (res) {
         let data = res.data;
         if(data.length > 0) {
-          let uniqueData = that.unique(data)
+          let uniqueData = that.unique(data);
           console.log('history', uniqueData)
           that.setData({
             hidden: false,
             searchStorage: uniqueData,
-            result: uniqueData
+            result: uniqueData.reverse()
           })
         }
       } 
