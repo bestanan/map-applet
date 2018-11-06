@@ -109,5 +109,37 @@ Page({
         console.log('history', data)
       } 
     })
+  },
+
+  //清除缓存-搜索历史记录
+  removeSearchStorage: function() {
+    let that = this;
+    wx.showModal({
+      title: '',
+      content: '清空历史记录？',
+      confirmText: '立即清空',
+      confirmColor: '#4D8AD7',
+      success (res) {
+        if (res.confirm) {
+          wx.removeStorage({
+            key: 'history',
+            success (res) {
+              that.setData({
+                hidden: true,
+                // searchStorage: [],
+                result: []
+              })
+              console.log('remove', res)
+            },
+            fail (res) {
+              console.log('清除缓存失败', res)
+            }
+          })
+          console.log('用户点击确定')
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
   }
 })
