@@ -1,20 +1,21 @@
 //可以编写自己的JavaScript插件
-// const formatTime = date => {
-//   const year = date.getFullYear()
-//   const month = date.getMonth() + 1
-//   const day = date.getDate()
-//   const hour = date.getHours()
-//   const minute = date.getMinutes()
-//   const second = date.getSeconds()
+let util = {
+  request: function() {
+    let options = Object.assign({},DEFAULT_REQUEST_OPTIONS,opt);
+    let {url,data,header,method,dataType,mock=false} = options
+    wx.request({
+      url,
+      data,
+      header,
+      method,
+      dataType,
+      success (res) {
+        console.log(res.data)
+      }
+    })
+  }
+}
 
-//   return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
-// }
-
-// const formatNumber = n => {
-//   n = n.toString()
-//   return n[1] ? n : '0' + n
-// }
-
-// module.exports = {
-//   formatTime: formatTime
-// }
+module.exports = {
+  util: util
+}

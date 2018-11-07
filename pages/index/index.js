@@ -1,4 +1,5 @@
 // map.js
+import util from '../../utils/index';
 // 引入SDK核心类
 var QQMapWX = require('../../libs/qqmap-wx-jssdk.js');
 // 实例化API核心类
@@ -134,7 +135,6 @@ Page({
       get_poi: 1, //是否返回周边POI列表：1.返回；0不返回(默认)
       poi_options: 'radius=3000;page_size=20;page_index=1;policy=1',
       success: function(res) {
-        console.log('res333', res)
         that.setData({
           bluraddress: res.result.formatted_addresses.recommend,
           address: res.result.address,
@@ -160,54 +160,6 @@ Page({
     })
     that.getPoiList(lng, lat)
   },
-
-  //搜索地点等关键字
-  searchAddress: function(e) {
-    let that = this;
-    if(e) {
-      var value = e.detail.value;
-      if(value != '') {
-        that.setData({
-          searchValue: value,
-          isHidden: false
-        })
-        console.log('value', value)
-        qqmapsdk.getSuggestion({
-          keyword: value,
-          region: '深圳市',
-          region_fix: 1,
-          success: function(res) {
-              console.log('搜索结果',res.data);
-              that.setData({
-                result: res.data
-              })
-          },
-          fail: function(res) {
-              console.log(res);
-          },
-          complete: function(res) {
-              // console.log(res);
-          }
-        });
-      }
-    }
-  },
-
-  // 清空搜索框内容
-  searchClear: function(e) {
-    let that = this;
-    that.setData({
-      searchValue: ''
-    })
-  },
-
-  // 点击取消 隐藏搜索列表
-  cancel() {
-    let that = this;
-    that.setData({
-      isHidden: true
-    })
-  },
   
   // 视野发生变化时触发 获取中心点（即用户选择的位置）
   regionchange(e) {
@@ -225,7 +177,7 @@ Page({
     return market;
   },
 
-
+  //创造标记点
   createMarker(point) {
     let id = point.id;
     let latitude = point.placeLatitude;
@@ -260,13 +212,6 @@ Page({
     this.mapCtx.moveToLocation();
   },
 
-  // strSub:function(a){
-  //   var str = a.split(".")[1];
-  //   str = str.substring(0, str.length - 1)
-  //   return a.split(".")[0] + '.' + str;
-  // },
-
-
   //点击标记时触发
   markertap(e) {
     //标记id
@@ -289,18 +234,12 @@ Page({
     })
   },
 
-  mapchange(e) {
-    // console.log(e)
-  },
-
+  //点击搜索框跳转搜索页
   bindInput() {
-    let { latitude, longitude, city } = this.data;
     let url = '/pages/search/search';
-    // wx.navigateTo({ url });
-    // let url = `/pages/inputtip/inputtip?city=${city}&lonlat=${longitude},${latitude}`;
     wx.navigateTo({ url });
     // wx.redirectTo({
-    //   url: "/pages/search/search",
+    //   url: url,
     // })
   }
 })
