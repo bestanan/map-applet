@@ -246,9 +246,12 @@ Page({
   requestMarkers: function() {
     let url = 'https://www.easy-mock.com/mock/5aded45053796b38dd26e970/comments#!method=get';
     util.request({
-      url: url,
+      url: url, 
+      data: '', 
+      header: {'content-type': 'application/json'},
+      method: 'GET',
       success: function(res) {
-        console.log('接口请求数据', res)
+        console.log('11',res)
       }
     })
   }
