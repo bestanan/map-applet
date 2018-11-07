@@ -299,12 +299,12 @@ Page({
     let curtimeStamp = + new Date();
     //需要传递给后台的请求参数
     let opt = {
-      userId: '',  //微信用户id String
+      userId: '',  //微信用户id String openid 用户的唯一标识
       title: title, //地名 String
       address: address, //具体地址 String
       lat: lat, //纬度 Number
       lng: lng, //经度 Number
-      timeStamp: curtimeStamp //打卡当前时间戳 Number
+      create_time: curtimeStamp //打卡当前时间戳 Number
     }
     wx.showModal({
       title: '打卡签到',
