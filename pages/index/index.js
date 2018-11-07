@@ -1,5 +1,5 @@
 // map.js
-import util from '../../utils/index';
+import util from '../../utils/util';
 // 引入SDK核心类
 var QQMapWX = require('../../libs/qqmap-wx-jssdk.js');
 // 实例化API核心类
@@ -105,7 +105,7 @@ Page({
   },
   
   onShow: function(){
-    
+    this.requestMarkers();
   },
   // 生命周期函数--监听页面初次渲染完成
   onReady: function() {
@@ -213,7 +213,7 @@ Page({
   },
 
   //点击标记时触发
-  markertap(e) {
+  markertap: function(e) {
     //标记id
     var that = this;
     let markerId = e.markerId;
@@ -235,12 +235,22 @@ Page({
   },
 
   //点击搜索框跳转搜索页
-  bindInput() {
+  bindInput: function() {
     let url = '/pages/search/search';
     wx.navigateTo({ url });
     // wx.redirectTo({
     //   url: url,
     // })
+  },
+
+  requestMarkers: function() {
+    let url = 'https://www.easy-mock.com/mock/5aded45053796b38dd26e970/comments#!method=get';
+    util.request({
+      url: url,
+      success: function(res) {
+        console.log('接口请求数据', res)
+      }
+    })
   }
 })
 

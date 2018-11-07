@@ -1,21 +1,30 @@
-//可以编写自己的JavaScript插件
+// 是否生产模式
+let isProduct = false; 
+if(isProduct) {
+  let server = ''; //正式域名
+} else {
+  let server = 'https://www.easy-mock.com';//测试域名
+}
+
+//请求默认参数
+let default_opts = {
+  url: '',
+  data: {},
+  header:{
+    'content-type': 'application/json' // 默认值
+  },
+  method: 'GET',
+  dataType: 'json'
+}
+
 let util = {
-  request: function() {
-    let options = Object.assign({},DEFAULT_REQUEST_OPTIONS,opt);
-    let {url,data,header,method,dataType,mock=false} = options
-    wx.request({
-      url,
-      data,
-      header,
-      method,
-      dataType,
-      success (res) {
-        console.log(res.data)
-      }
-    })
+  request: function(opt) {
+    let options = Object.assign(default_opts, opt);
+    console.log('options', options);
+    wx.request(options);
   }
 }
 
-module.exports = {
-  util: util
-}
+export default util;
+// module.exports = util;
+
