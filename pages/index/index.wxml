@@ -39,7 +39,7 @@
         <cover-view class="blur">{{title}}</cover-view>
       <cover-view class="detailed">{{address}}</cover-view> 
       </cover-view>
-      <cover-view class="address-btn" bindtap="clockRequest" 
+      <cover-view class="address-btn" bindtap="clockInOut" 
         data-title="{{title}}" 
         data-address="{{address}}" 
         data-clocklat="{{clocklat}}" 

@@ -118,6 +118,7 @@ Page({
       content: '清空历史记录？',
       confirmText: '立即清空',
       confirmColor: '#4D8AD7',
+      cancelColor: '#999',
       success (res) {
         if (res.confirm) {
           wx.removeStorage({

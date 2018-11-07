@@ -135,7 +135,6 @@ Page({
       get_poi: 1, //是否返回周边POI列表：1.返回；0不返回(默认)
       poi_options: 'radius=3000;page_size=20;page_index=1;policy=1',
       success: function(res) {
-        console.log('地址详情', res)
         let result = res.result;
         that.setData({
           title: result.formatted_addresses.recommend,
@@ -146,9 +145,6 @@ Page({
       },
       fail: function(res) {
           console.log(res);
-      },
-      complete: function(res) {
-          // console.log(res);
       }
     })
   },
@@ -248,7 +244,7 @@ Page({
   },
 
   /**
-   * 获取标记点数组数据
+   * 数据请求-获取标记点数组
    */
   markersRequest: function() {
     let url = '/mock/5aded45053796b38dd26e970/comments#!method=get';
@@ -266,30 +262,20 @@ Page({
   },
 
   /**
-   * 打卡功能数据请求
+   * 数据请求-打卡
    */
-  clockRequest: function(e) {
-    console.log('打卡请求', e)
-    let dataset = e.currentTarget.dataset;
-    let title = dataset.title;
-    let address = dataset.address;
-    let lat = dataset.clocklat;
-    let lng = dataset.clocklng;
-    let url = '';
-    let curtimeStamp = + new Date();
-    //需要传递给后台的请求参数
-    let opt = {
-      title: title,
-      address: address,
-      lat: lat,
-      lng: lng,
-      timeStamp: curtimeStamp
-    }
+  clockRequest: function(opt) {
     console.log('传递的参数', opt)
+    let url = '/mock/5aded45053796b38dd26e970/comments#!method=get';
     util.getRequest(url, opt)
       .then(res => {
         let data = res.data;
-        // console.log('接口请求的数据', data)
+        console.log('接口请求的数据', data)
+        wx.showToast({
+          title: '打卡成功~',
+          icon: 'success',
+          duration: 1500
+        })
       })
       .catch(res => {
         wx.showToast({
@@ -297,6 +283,43 @@ Page({
           icon: 'none'
         })
       })
+  },
+
+  /**
+   * 点击打卡
+   */
+  clockInOut: function(e) {
+    console.log('打卡请求', e)
+    let that = this;
+    let dataset = e.currentTarget.dataset;
+    let title = dataset.title;
+    let address = dataset.address;
+    let lat = dataset.clocklat;
+    let lng = dataset.clocklng;
+    let curtimeStamp = + new Date();
+    //需要传递给后台的请求参数
+    let opt = {
+      userId: '',  //微信用户id String
+      title: title, //地名 String
+      address: address, //具体地址 String
+      lat: lat, //纬度 Number
+      lng: lng, //经度 Number
+      timeStamp: curtimeStamp //打卡当前时间戳 Number
+    }
+    wx.showModal({
+      title: '打卡签到',
+      content: `地址：${title}`,
+      confirmText: '打卡',
+      confirmColor: '#4D8AD7',
+      cancelColor: '#999',
+      success (res) {
+        if (res.confirm) {
+          that.clockRequest(opt);
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
   }
 })
 
