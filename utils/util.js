@@ -1,12 +1,10 @@
-
-
 let util = {
   /**
    * 网络请求
    */
   request: function(url, data, method) {
-    // let server = ''; //正式域名
-    let server = 'https://www.easy-mock.com'; //测试域名（暂用easy mock模拟数据请求）
+    let server = ''; //正式域名
+    // let server = 'https://www.easy-mock.com'; //测试域名（暂用easy mock模拟数据请求）
     return new Promise((resolve, reject) => {
       wx.request({
         url: server + url,

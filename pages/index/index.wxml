@@ -36,10 +36,16 @@
     <cover-view class="address">
       <cover-image style="width: 40px;height: 40px;" src="../../images/marker.png"></cover-image>
       <cover-view class="address-desc">
-        <cover-view class="blur">{{bluraddress}}</cover-view>
-      <cover-view class="detailed"> {{address}}</cover-view> 
+        <cover-view class="blur">{{title}}</cover-view>
+      <cover-view class="detailed">{{address}}</cover-view> 
       </cover-view>
-      <cover-view class="address-btn" bindtap="">打卡</cover-view>
+      <cover-view class="address-btn" bindtap="clockRequest" 
+        data-title="{{title}}" 
+        data-address="{{address}}" 
+        data-clocklat="{{clocklat}}" 
+        data-clocklng="{{clocklng}}" >
+        打卡
+      </cover-view>
     </cover-view>
 
   </map>

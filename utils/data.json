@@ -1,0 +1,24 @@
+{
+  "markersData": [
+    {
+      "id": 1,
+      "placeName": "腾讯大厦",
+      "placeAddress": "",
+      "placeLongitude": 113.93470153442384,
+      "placeLatitude": 22.540058474209314
+    }, 
+    {
+      "id": 3,
+      "placeName": "桂庙新村",
+      "placeAddress": "",
+      "placeLongitude": 113.93349990478517,
+      "placeLatitude": 22.52650191497704
+    }
+  ],
+
+  "clickParams": [
+    
+  ]
+}
+
+

@@ -105,7 +105,7 @@ Page({
   },
   
   onShow: function(){
-    this.requestMarkers();
+    // this.requestMarkers();
   },
   // 生命周期函数--监听页面初次渲染完成
   onReady: function() {
@@ -135,9 +135,13 @@ Page({
       get_poi: 1, //是否返回周边POI列表：1.返回；0不返回(默认)
       poi_options: 'radius=3000;page_size=20;page_index=1;policy=1',
       success: function(res) {
+        console.log('地址详情', res)
+        let result = res.result;
         that.setData({
-          bluraddress: res.result.formatted_addresses.recommend,
-          address: res.result.address,
+          title: result.formatted_addresses.recommend,
+          address: result.address,
+          clocklat: result.location.lat,
+          clocklng: result.location.lng
         })
       },
       fail: function(res) {
@@ -243,12 +247,49 @@ Page({
     // })
   },
 
-  requestMarkers: function() {
+  /**
+   * 获取标记点数组数据
+   */
+  markersRequest: function() {
     let url = '/mock/5aded45053796b38dd26e970/comments#!method=get';
     util.getRequest(url, '')
       .then(res => {
         let data = res.data;
         console.log('接口请求的数据', data)
+      })
+      .catch(res => {
+        wx.showToast({
+          title: '出错啦~~',
+          icon: 'none'
+        })
+      })
+  },
+
+  /**
+   * 打卡功能数据请求
+   */
+  clockRequest: function(e) {
+    console.log('打卡请求', e)
+    let dataset = e.currentTarget.dataset;
+    let title = dataset.title;
+    let address = dataset.address;
+    let lat = dataset.clocklat;
+    let lng = dataset.clocklng;
+    let url = '';
+    let curtimeStamp = + new Date();
+    //需要传递给后台的请求参数
+    let opt = {
+      title: title,
+      address: address,
+      lat: lat,
+      lng: lng,
+      timeStamp: curtimeStamp
+    }
+    console.log('传递的参数', opt)
+    util.getRequest(url, opt)
+      .then(res => {
+        let data = res.data;
+        // console.log('接口请求的数据', data)
       })
       .catch(res => {
         wx.showToast({
