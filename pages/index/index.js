@@ -244,16 +244,18 @@ Page({
   },
 
   requestMarkers: function() {
-    let url = 'https://www.easy-mock.com/mock/5aded45053796b38dd26e970/comments#!method=get';
-    util.request({
-      url: url, 
-      data: '', 
-      header: {'content-type': 'application/json'},
-      method: 'GET',
-      success: function(res) {
-        console.log('11',res)
-      }
-    })
+    let url = '/mock/5aded45053796b38dd26e970/comments#!method=get';
+    util.getRequest(url, '')
+      .then(res => {
+        let data = res.data;
+        console.log('接口请求的数据', data)
+      })
+      .catch(res => {
+        wx.showToast({
+          title: '出错啦~~',
+          icon: 'none'
+        })
+      })
   }
 })
 
