@@ -69,14 +69,13 @@ Page({
     // 使用 wx.createMapContext 获取 map 上下文
     this.mapCtx = wx.createMapContext('map')
     var that = this;
-
     // 调用微信内部获取位置 默认为wsg84 精确为gcj02
     // map 组件使用的经纬度是火星坐标系，调用 wx.getLocation 接口需要指定 type 为 gcj02
     wx.getLocation({
       type: 'gcj02',
       success: function (res) {
-        var lng = res.longitude
-        var lat = res.latitude
+        var lng = res.longitude;
+        var lat = res.latitude;
         that.setData({
           longitude: lng,
           latitude: lat,
@@ -274,7 +273,7 @@ Page({
         wx.showToast({
           title: '打卡成功~',
           icon: 'success',
-          duration: 1500
+          duration: 1000
         })
       })
       .catch(res => {
@@ -314,12 +313,33 @@ Page({
       cancelColor: '#999',
       success (res) {
         if (res.confirm) {
-          that.clockRequest(opt);
+          // that.clockRequest(opt);
         } else if (res.cancel) {
           console.log('用户点击取消')
         }
       }
     })
+  },
+
+  clickDaohang: function(e) {
+    let that = this;
+    console.log('导航', e)
+    let dataset = e.currentTarget.dataset;
+    let title = dataset.title;
+    let lat = dataset.latitude;
+    let lng = dataset.longitude;
+    // wx.openLocation({
+    //   latitude: lat,
+    //   longitude: lng,
+    //   name:"东海国际中心"
+    // })
+    wx.openLocation({
+      latitude: lat,
+      longitude: lng,
+      name: title,
+      scale: that.data.scale
+    })
   }
+
 })
 

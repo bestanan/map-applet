@@ -35,7 +35,7 @@
     <!-- 展示详细地址 -->
     <cover-view class="address">
       <cover-image style="width: 40px;height: 40px;" src="../../images/marker.png"></cover-image>
-      <cover-view class="address-desc">
+      <cover-view class="address-desc" bindtap="clickDaohang" data-title="{{title}}" data-address="{{address}}" data-longitude="{{longitude}}" data-latitude="{{latitude}}">
         <cover-view class="blur">{{title}}</cover-view>
       <cover-view class="detailed">{{address}}</cover-view> 
       </cover-view>
