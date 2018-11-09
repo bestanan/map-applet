@@ -1,7 +1,6 @@
-var QQMapWX = require('../../libs/qqmap-wx-jssdk.js');
-var qqmapsdk = new QQMapWX({
-  key: 'PM6BZ-25QKX-BAE4K-T366U-7SMA5-XQF4U' // 必填
-});
+import config from '../../utils/config';
+let qqmapsdk = config.qqmapsdk;
+
 Page({
   data: {
     hidden: true,

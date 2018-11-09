@@ -1,11 +1,8 @@
 // map.js
 import util from '../../utils/util';
-// 引入SDK核心类
-var QQMapWX = require('../../libs/qqmap-wx-jssdk.js');
-// 实例化API核心类
-var qqmapsdk = new QQMapWX({
-  key: 'PM6BZ-25QKX-BAE4K-T366U-7SMA5-XQF4U' // 必填
-});
+import config from '../../utils/config';
+let qqmapsdk = config.qqmapsdk;
+
 Page({
   // 页面的初始数据
   data: {
@@ -68,14 +65,14 @@ Page({
   onLoad: function() {
     // 使用 wx.createMapContext 获取 map 上下文
     this.mapCtx = wx.createMapContext('map')
-    var that = this;
+    let that = this;
     // 调用微信内部获取位置 默认为wsg84 精确为gcj02
     // map 组件使用的经纬度是火星坐标系，调用 wx.getLocation 接口需要指定 type 为 gcj02
     wx.getLocation({
       type: 'gcj02',
       success: function (res) {
-        var lng = res.longitude;
-        var lat = res.latitude;
+        let lng = res.longitude;
+        let lat = res.latitude;
         that.setData({
           longitude: lng,
           latitude: lat,
@@ -169,7 +166,7 @@ Page({
 
   // 获取标记数组
   getMarkersArr: function() {
-    var market = []
+    let market = []
     for (let item of this.data.markersData) {
       market.push(this.createMarker(item))
     }
@@ -214,7 +211,7 @@ Page({
   //点击标记时触发
   markertap: function(e) {
     //标记id
-    var that = this;
+    let that = this;
     let markerId = e.markerId;
     console.log('标记', markerId, e)
     console.log(that.data.markersData[0])
