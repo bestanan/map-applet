@@ -1,0 +1,17 @@
+<!--logs.wxml-->
+<view class="login-container">
+  <view class="header">
+    <text class="title">打卡系统</text>
+  </view>
+  <view class="username">
+    <image src='../../images/username.png' />
+    <input class="input" type="text" placeholder="请输入用户名" />
+  </view>
+  <view class="password">
+    <image src='../../images/password.png' />
+    <input class="input" type="text" password placeholder="请输入密码" />
+  </view>
+  <view class="login">
+    <button  class="login-btn">登录</button>
+  </view>
+</view>
