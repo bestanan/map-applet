@@ -138,8 +138,8 @@ Page({
         that.setData({
           title: result.formatted_addresses.recommend,
           address: result.address,
-          clocklat: result.location.lat,
-          clocklng: result.location.lng
+          movedlat: result.location.lat,
+          movedlng: result.location.lng
         })
       },
       fail: function(res) {
@@ -323,21 +323,30 @@ Page({
 
   clickDaohang: function(e) {
     let that = this;
-    console.log('导航', e)
     let dataset = e.currentTarget.dataset;
     let title = dataset.title;
     let lat = dataset.latitude;
     let lng = dataset.longitude;
-    // wx.openLocation({
-    //   latitude: lat,
-    //   longitude: lng,
-    //   name:"东海国际中心"
-    // })
-    wx.openLocation({
-      latitude: lat,
-      longitude: lng,
-      name: title,
-      scale: that.data.scale
+    console.log('经度',lng, '纬度', lat, '地址', title);
+    wx.getLocation({
+      type: 'gcj02',
+      success: function (res) {
+        wx.openLocation({
+          latitude: lat,
+          longitude: lng,
+          name: title,
+          scale: that.data.scale
+        })
+        // wx.openLocation({
+        //   latitude: 22.53236865950445,
+        //   longitude: 113.9366756402588,
+        //   name: '深圳大学',
+        //   scale: that.data.scale
+        // })
+      },
+      fail: function(res) {
+        console.log('导航失败');
+      }
     })
   }
 
