@@ -351,6 +351,15 @@ Page({
         console.log('导航失败');
       }
     })
+  },
+
+  /**
+   * 点击个人图标，跳转个人中心
+   */
+  movetoPerson: function() {
+    wx.navigateTo({
+      url: '/pages/person/person'
+    })
   }
 
 })

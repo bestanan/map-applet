@@ -1,14 +1,15 @@
 {
-  "pages":[
+  "pages": [
     "pages/login/login",
     "pages/index/index",
     "pages/search/search",
+    "pages/person/person",
     "pages/logs/logs"
   ],
-  "window":{
-    "backgroundTextStyle":"light",
+  "window": {
+    "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "小程序demo",
-    "navigationBarTextStyle":"black"
+    "navigationBarTextStyle": "black"
   }
 }

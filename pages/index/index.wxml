@@ -35,7 +35,6 @@
     <!-- 展示详细地址 -->
     <cover-view class="address">
       <cover-image style="width: 40px;height: 40px;" src="../../images/marker.png"></cover-image>
-
       <cover-view class="address-desc" bindtap="clickDaohang" 
         data-title="{{title}}" 
         data-address="{{address}}"
@@ -44,7 +43,6 @@
         <cover-view class="blur">{{title}}</cover-view>
         <cover-view class="detailed">{{address}}</cover-view> 
       </cover-view>
-
       <cover-view class="address-btn" bindtap="clockInOut" 
         data-title="{{title}}" 
         data-address="{{address}}" 
@@ -52,9 +50,12 @@
         data-clocklng="{{movedlng}}" >
         打卡
       </cover-view>
-
     </cover-view>
 
+    <!-- 个人中心图标 -->
+    <cover-view class="person" bindtap="movetoPerson">
+      <cover-image style="" src="../../images/person.png"></cover-image>
+    </cover-view>
   </map>
   <!-- 地图显示结束 -->
 </view>

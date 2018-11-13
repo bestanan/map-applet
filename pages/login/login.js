@@ -7,18 +7,9 @@ Page({
     username: '',
     password: ''
   },
+  
   onLoad: function () {
-    // this.setData({
-    //   res: app.globalData.res
-    // })
-    // let username = wx.getStorageSync('username');
-    // let password = wx.getStorageSync('password');
-    // console.log('username', username)
-    // console.log('password', password)
-    // if(username == 'admin' && password == '123456') {
-    //   wx.navigateTo({ url: '/pages/index/index' });
-    //   return;
-    // }
+
   },
 
   //监听账号输入
@@ -41,7 +32,7 @@ Page({
     console.log('denglu')
     if(username == '') {
       util.showToast({
-        title: '用户名不能为空',
+        title: '账号不能为空',
         icon: '',
         image: '../../images/info-sign.png',
         success: ( ) => { console.log('用户名不能为空') }
@@ -57,6 +48,16 @@ Page({
       });
       return;
     }
+    // if(username != 'admin' || password != '123') {
+    //   util.showToast({
+    //     title: '账号或密码错误',
+    //     icon: '',
+    //     image: '../../images/info-sign.png',
+    //     success: ( ) => { console.log('账号或密码错误') }
+    //   });
+    //   return;
+    // }
+
     //loading
     util.showLoading('登录中...');
 
@@ -72,10 +73,11 @@ Page({
         let code = res.statusCode;
         if(code == 200) {
           console.log('登录成功');
-          // wx.setStorageSync('username', username);
-          // wx.setStorageSync('password', password);
+          wx.setStorageSync('username', username);
+          wx.setStorageSync('password', password);
           //登录成功则跳转到地图页
-          wx.redirectTo({ url: '/pages/index/index' });
+          wx.reLaunch({ url: '/pages/index/index' });
+          // wx.redirectTo({ url: '/pages/index/index' });
           //关闭loading
           util.hideLoading();
         } else {

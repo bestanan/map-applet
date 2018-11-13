@@ -109,4 +109,17 @@
   text-align: center;
   color: #666666;
 }
-
+/* 个人图标 */
+.person {
+  width: 80rpx;
+  height: 80rpx;
+  position: absolute;
+  bottom: 210rpx;
+  right: 20rpx;
+  background: #fff;
+  border-radius: 50%;
+}
+.person cover-image {
+  width: 80rpx;
+  height: 80rpx;
+}

@@ -1,0 +1,12 @@
+<!--person.wxml-->
+<view class="container log-list">
+  个人中心
+  <view class="">
+    用户名：{{username}}
+  </view>
+  <view class="">
+    密码：{{password}}
+  </view>
+
+  <button bindtap="changeUser">切换账号</button>
+</view>
