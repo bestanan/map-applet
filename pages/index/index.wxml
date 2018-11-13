@@ -5,7 +5,7 @@
     <view class="search-bar_form">
       <view class="search-bar_box">
         <icon class="icon-search_in-box" type="search" size="14"></icon>
-        <input type="text" class="search-bar_input" placeholder="查找地点、公交、地铁" value="{{searchValue}}" bindtouchstart="bindInput"  bindconfirm="SearchConfirm" />
+        <input type="text" class="search-bar_input" placeholder="查找地点、公交、地铁" value="{{searchValue}}" bindtouchstart="bindInput" />
       </view>
     </view>
   </view>

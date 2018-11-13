@@ -5,13 +5,13 @@
   </view>
   <view class="username">
     <image src='../../images/username.png' />
-    <input class="input" type="text" placeholder="请输入用户名" />
+    <input class="input" type="text" placeholder="请输入用户名" bindinput="usernameInput" cursor-spacing='50' />
   </view>
   <view class="password">
     <image src='../../images/password.png' />
-    <input class="input" type="text" password placeholder="请输入密码" />
+    <input class="input" type="text" password placeholder="请输入密码" bindinput="passwordInput" cursor-spacing='50' />
   </view>
   <view class="login">
-    <button  class="login-btn">登录</button>
+    <button  class="login-btn" bindtap="loginAction">登录</button>
   </view>
 </view>

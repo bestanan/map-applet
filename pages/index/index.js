@@ -1,5 +1,5 @@
 // map.js
-import util from '../../utils/util';
+import request from '../../utils/request';
 import config from '../../utils/config';
 let qqmapsdk = config.qqmapsdk;
 
@@ -63,6 +63,8 @@ Page({
 
   // 生命周期函数--监听页面加载
   onLoad: function() {
+    
+
     // 使用 wx.createMapContext 获取 map 上下文
     this.mapCtx = wx.createMapContext('map')
     let that = this;
@@ -106,6 +108,7 @@ Page({
   // 生命周期函数--监听页面初次渲染完成
   onReady: function() {
     // console.log(this.getMarkersArr());
+    
   },
 
   //获取中心点经纬度
@@ -244,7 +247,7 @@ Page({
    */
   markersRequest: function() {
     let url = '/mock/5aded45053796b38dd26e970/comments#!method=get';
-    util.getRequest(url, '')
+    request.getRequest(url, '')
       .then(res => {
         let data = res.data;
         console.log('接口请求的数据', data)
@@ -263,7 +266,7 @@ Page({
   clockRequest: function(opt) {
     console.log('传递的参数', opt)
     let url = '/mock/5aded45053796b38dd26e970/comments#!method=get';
-    util.getRequest(url, opt)
+    request.getRequest(url, opt)
       .then(res => {
         let data = res.data;
         console.log('接口请求的数据', data)
@@ -318,6 +321,9 @@ Page({
     })
   },
 
+  /**
+   * 点击导航
+   */
   clickDaohang: function(e) {
     let that = this;
     let dataset = e.currentTarget.dataset;

@@ -1,31 +1,103 @@
 const app = getApp();
+import util from '../../utils/util';
+import request from '../../utils/request';
+
 Page({
   data: {
+    username: '',
+    password: ''
   },
   onLoad: function () {
-    this.setData({
-      res: app.globalData.res
-    })
-
-    // this.login();
+    // this.setData({
+    //   res: app.globalData.res
+    // })
+    // let username = wx.getStorageSync('username');
+    // let password = wx.getStorageSync('password');
+    // console.log('username', username)
+    // console.log('password', password)
+    // if(username == 'admin' && password == '123456') {
+    //   wx.navigateTo({ url: '/pages/index/index' });
+    //   return;
+    // }
   },
 
-  login: function() {
-    wx.login({
-      success (res) {
-        console.log('res ', res)
-        if (res.code) {
-          //发起网络请求
-          // wx.request({
-          //   url: 'https://test.com/onLogin',
-          //   data: {
-          //     code: res.code
-          //   }
-          // })
+  //监听账号输入
+  usernameInput: function(e) {
+    this.data.username = e.detail.value;
+  },
+
+  //监听密码输入
+  passwordInput: function(e) {
+    this.data.password = e.detail.value;
+  },
+
+  //登录按钮点击事件
+  loginAction: function() {
+    let that = this;
+    let username = that.data.username;
+    let password = that.data.password;
+    console.log('账号：' + username);
+    console.log('密码：' + password)
+    console.log('denglu')
+    if(username == '') {
+      util.showToast({
+        title: '用户名不能为空',
+        icon: '',
+        image: '../../images/info-sign.png',
+        success: ( ) => { console.log('用户名不能为空') }
+      });
+      return;
+    }
+    if(password == '') {
+      util.showToast({
+        title: '密码不能为空',
+        icon: '',
+        image: '../../images/info-sign.png',
+        success: ( ) => { console.log('密码不能为空') }
+      });
+      return;
+    }
+    //loading
+    util.showLoading('登录中...');
+
+    //mock测试数据
+    let url = '/mock/5be8f089b2a43e6eaa87c1bf/maptest/loginIn';
+    let obj = {
+      username: username,
+      password: password
+    }
+    request.postRequest(url, obj)
+      .then(res => {
+        console.log('mock数据', res)
+        let code = res.statusCode;
+        if(code == 200) {
+          console.log('登录成功');
+          // wx.setStorageSync('username', username);
+          // wx.setStorageSync('password', password);
+          //登录成功则跳转到地图页
+          wx.redirectTo({ url: '/pages/index/index' });
+          //关闭loading
+          util.hideLoading();
         } else {
-          console.log('登录失败！' + res.errMsg)
+          util.showToast({
+            title: '请稍后重试',
+            icon: '',
+            image: '../../images/info-sign.png',
+            success: ( ) => { console.log('登录失败，稍后重试') }
+          });
         }
-      }
-    })
+      })
+      .catch(res => {
+        util.showToast({
+          title: '请稍后重试',
+          icon: '',
+          image: '../../images/info-sign.png',
+          success: ( ) => { console.log('登录失败，稍后重试') }
+        });
+      })
+
   }
+
+
+
 })
