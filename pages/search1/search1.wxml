@@ -1,0 +1,32 @@
+<!--logs.wxml-->
+<view class="search-bar">
+    <view class="search-bar_form">
+      <view class="search-bar_box">
+        <icon class="icon-search_in-box" type="search" size="14"></icon>
+        <input type="text" class="search-bar_input" placeholder="查找地点、公交、地铁" value="{{searchValue}}" bindinput="bindSearch" focus />
+        <view class="icon-clear" wx:if="{{searchValue.length > 0}}" bindtap="searchClear">
+          <icon type="clear" size="14"></icon>
+        </view>
+      </view>
+    </view>
+  </view>
+<!-- <view class="search">
+  <input type="text" placeholder="搜索" value="{{searchValue}}" bindinput="bindInput" />
+</view> -->
+<view class="searchList">
+  <view class="list" wx:for="{{result}}" wx:key="{{item.id}}" bindtap="getAddress" data-id="{{item.id}}" data-title="{{item.title}}" data-address="{{item.address}}" data-location="{{item.location}}" >
+    <view class="list-content">
+      <view class="image">
+        <image class="" src="../../images/location0.png"></image>
+      </view>
+      <view class="content">
+        <text class="content-name">{{item.title}}</text>
+        <text class="content-detail">{{item.address}}</text>
+      </view>
+    </view>
+  </view>
+</view>
+<view class='history-clear' wx:if="{{!hidden}}" bindtap="removeSearchStorage">
+  <label>清除历史纪录</label>
+</view>
+

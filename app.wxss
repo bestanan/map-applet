@@ -7,4 +7,42 @@
   justify-content: space-between;
   padding: 200rpx 0;
   box-sizing: border-box;
-} 
+}
+
+.relative {
+  position: relative;
+}
+
+.bg-common {
+  background-color: #f0f0f5;
+}
+
+.bg-white {
+  background-color: #FFFFFF;
+}
+
+.bg-blue {
+  background-color: #0082dc;
+}
+
+
+.fg-black {
+  color: #000000;
+}
+
+.fg-a {
+  color: #aaaaaa;
+}
+
+.f-12 {
+  font-size: 12px;
+}
+
+.f-15 {
+  font-size: 15px;
+}
+
+.flex-column-center {
+  display: flex;
+  align-items: center;
+}

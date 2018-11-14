@@ -1,18 +1,19 @@
-<!--logs.wxml-->
-<view class="search-bar">
-    <view class="search-bar_form">
-      <view class="search-bar_box">
-        <icon class="icon-search_in-box" type="search" size="14"></icon>
-        <input type="text" class="search-bar_input" placeholder="查找地点、公交、地铁" value="{{searchValue}}" bindinput="bindSearch" focus />
-        <view class="icon-clear" wx:if="{{searchValue.length > 0}}" bindtap="searchClear">
-          <icon type="clear" size="14"></icon>
+<!--pages/test/test.wxml-->
+<form class="relative" bindsubmit="bindSearch" reportSubmit="true">
+  <view class="top-bar bg-white">
+    <view class="top-imitate-search-bar">
+      <view class="imitate-search-bar-block f-15 fg-black">
+        <image class="search-icon" src="../../images/search.png"></image>
+        <input autoFocus bindblur="bindSearch" class="search-input" confirmType="search" name="searchValue" placeholder="搜索公交线路、车站、地点" placeholderClass="fg-a f-12" type="text" value="{{searchKey}}"></input>
+        <view catchtap="clearInput" class="close-btn">
+            <image class="close-icon" hidden="{{!searchKey}}" src="../../images/close_white.png"></image>
         </view>
       </view>
     </view>
+    <button class="searchSubmit" formType="submit">查询</button>
   </view>
-<!-- <view class="search">
-  <input type="text" placeholder="搜索" value="{{searchValue}}" bindinput="bindInput" />
-</view> -->
+</form>
+
 <view class="searchList">
   <view class="list" wx:for="{{result}}" wx:key="{{item.id}}" bindtap="getAddress" data-id="{{item.id}}" data-title="{{item.title}}" data-address="{{item.address}}" data-location="{{item.location}}" >
     <view class="list-content">
@@ -27,6 +28,84 @@
   </view>
 </view>
 <view class='history-clear' wx:if="{{!hidden}}" bindtap="removeSearchStorage">
-  <label>清除历史纪录</label>
+  <label>清除历史记录</label>
 </view>
+
+<!-- <view class="search-content">
+    <view class="search-desc text-center fg-a" wx:if="{{!histories.length&&!lines.length&&!stations.length&&!pois.length&&!noSearchResult}}">
+        <view class="f-20">你可以搜索</view>
+        <view class="search-type f-10">
+            <view class="search-type-item">
+                <image src="https://cdn.www.chelaile.net.cn/web_active/wmp/newimages/line_ic@2x.png"></image>
+                <text>线路</text>
+            </view>
+            <view class="search-type-item">
+                <image src="https://cdn.www.chelaile.net.cn/web_active/wmp/newimages/bus_stop_ic@2x.png"></image>
+                <text>车站</text>
+            </view>
+            <view class="search-type-item">
+                <image src="https://cdn.www.chelaile.net.cn/web_active/wmp/newimages/locale_ic@2x.png"></image>
+                <text>地点</text>
+            </view>
+        </view>
+    </view>
+    <view class="have-recent bg-white" wx:if="{{histories.length>0&&lines.length<1&&stations.length<1&&pois.length<1&&!noSearchResult}}">
+        <view class="search-line-title fg-a bg-fb f-12">搜索历史</view>
+        <ul>
+            <li class="bb have-recent-item lh-48 f-15 fg-3 text-ellipsis" wx:for="{{histories}}" wx:key="{{storageKey}}">
+                <view bindtap="redirectPage" class="flex-auto text-ellipsis" data-item="{{item}}" data-type="{{item.type}}">
+                    <image class="search-item-bus" src="https://cdn.www.chelaile.net.cn/web_active/wmp/newimages/seach_line_ic@2x.png" wx:if="{{item.type==='line'}}"></image>
+                    <image class="search-item-bus" src="https://cdn.www.chelaile.net.cn/web_active/wmp/newimages/seach_stop_ic@2x.png" wx:if="{{item.type==='station'}}"></image>
+                    <image class="search-item-bus" src="https://cdn.www.chelaile.net.cn/web_active/wmp/newimages/seach_locale_ic@2x.png" wx:if="{{item.type==='poi'}}"></image>
+              {{item.displayName}}
+            </view>
+                <view class="search-separator"></view>
+            </li>
+        </ul>
+        <view bindtap="showClearModel" class="search-history-clear bg-white text-center fg-6 f-14">清空搜索历史</view>
+    </view>
+    <block wx:if="{{lines.length>0}}">
+        <view class="search-line-title fg-a bg-fb f-12">线路</view>
+        <view bindtap="redirectPage" class="search-line bg-white fg-black lh-48" data-item="{{item}}" data-type="line" wx:for="{{lines}}" wx:key="lineId">
+        {{item.displayName}}
+        <image class="search-item-bus" src="https://cdn.www.chelaile.net.cn/web_active/wmp/newimages/seach_line_ic@2x.png"></image>
+            <view class="line-border" wx:if="{{index<lines.length-1}}"></view>
+            <view class="line-border" wx:if="{{haveMoreItems&&lines.length>2}}"></view>
+        </view>
+        <view bindtap="moreLines" class="search-more-items bg-white fg-6 f-14 flex-column-center" wx:if="{{haveMoreItems&&lineCount>3}}">
+            <image class="ico-enter-ic" src="https://cdn.www.chelaile.net.cn/web_active/wmp/newimages/back_arrow_ic@2x.png"></image>
+      查看更多线路
+    </view>
+    </block>
+    <block wx:if="{{stations.length>0}}">
+        <view class="search-line-title fg-a bg-fb f-12">站点</view>
+        <view bindtap="redirectPage" class="search-line bg-white fg-black lh-48 text-ellipsis" data-item="{{item}}" data-type="station" wx:for="{{stations}}" wx:key="sId">
+        {{item.sn}}
+        <image class="search-item-bus" src="https://cdn.www.chelaile.net.cn/web_active/wmp/newimages/seach_stop_ic@2x.png"></image>
+            <view class="line-border" wx:if="{{index<stations.length-1}}"></view>
+            <view class="line-border" wx:if="{{haveMoreItems&&stations.length>2}}"></view>
+        </view>
+        <view bindtap="moreStations" class="search-more-items bg-white fg-6 f-14 flex-column-center" wx:if="{{haveMoreItems&&stationCount>3}}">
+            <image class="ico-enter-ic" src="https://cdn.www.chelaile.net.cn/web_active/wmp/newimages/back_arrow_ic@2x.png"></image>
+      查看更多站点
+    </view>
+    </block>
+    <block wx:if="{{pois.length>0}}">
+        <view class="search-line-title fg-a bg-fb f-12">到这去</view>
+        <view bindtap="redirectPage" class="search-line bg-white fg-black lh-48 text-ellipsis" data-item="{{item}}" data-type="poi" wx:for="{{pois}}" wx:key="sId">
+        {{item.sn}}
+        <image class="search-item-bus" src="https://cdn.www.chelaile.net.cn/web_active/wmp/newimages/seach_locale_ic@2x.png"></image>
+            <view class="line-border" wx:if="{{index<pois.length-1}}"></view>
+            <view class="line-border" wx:if="{{haveMoreItems&&pois.length>2}}"></view>
+        </view>
+        <view bindtap="morePois" class="search-more-items bg-white fg-6 f-14 flex-column-center" wx:if="{{haveMoreItems&&poiCount>3}}">
+            <image class="ico-enter-ic" src="https://cdn.www.chelaile.net.cn/web_active/wmp/newimages/back_arrow_ic@2x.png"></image>
+      查看更多地点
+    </view>
+    </block>
+    <view class="no-search-result-container" wx:if="{{noSearchResult}}">
+        <image class="none-search-pic" src="https://cdn.www.chelaile.net.cn/web_active/wmp/newimages/search_none_ic@2x.png"></image>
+        <div class="f-14 fg-a lh-20">没有找到合适的结果</div>
+    </view>
+</view> -->
 

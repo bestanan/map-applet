@@ -234,13 +234,14 @@ Page({
   },
 
   //点击搜索框跳转搜索页
-  bindInput: function() {
+  goSearch: function() {
     let url = '/pages/search/search';
     wx.navigateTo({ url });
     // wx.redirectTo({
     //   url: url,
     // })
   },
+
 
   /**
    * 数据请求-获取标记点数组
@@ -358,12 +359,9 @@ Page({
    */
   movetoPerson: function() {
     console.log(11)
-    wx.switchTab({
+    wx.navigateTo({
       url: '/pages/person/person'
     })
-    // wx.navigateTo({
-    //   url: '/pages/person/person'
-    // })
   }
 
 })

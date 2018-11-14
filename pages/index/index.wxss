@@ -1,12 +1,12 @@
 .container{
   position: relative;
   width: 100%;
-  height: calc(100vh - 48px);
+  height: calc(100vh - 52px);
 }
 .map {
   position: absolute;
   left: 0;
-  top: 48px;
+  top: 0;
   right: 0;
   bottom: 0;
   width: 100%;
@@ -122,4 +122,74 @@
 .person cover-image {
   width: 80rpx;
   height: 80rpx;
+}
+
+
+
+
+/* 顶部搜索框 */
+.top-bar {
+  height: 52px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  z-index: 1;
+}
+
+.top-imitate-search-bar {
+  flex: 1;
+  padding: 8px 8px 8px 16px;
+}
+
+.search-content {
+    position: relative;
+}
+
+.imitate-search-bar-block {
+  outline: none;
+  border-radius: 18px;
+  font-size: 14px;
+  padding: 0 36px;
+  height: 36px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  position: relative;
+  background: #f0f0f5;
+}
+
+.search-icon {
+  position: absolute;
+  top: 6px;
+  left: 8px;
+  z-index: 2;
+  width: 24px;
+  height: 24px;
+}
+
+.imitate-search-bar-block .close-icon {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  z-index: 2;
+  width: 12px;
+  height: 12px;
+  background: #aaaaaa;
+  border-radius: 50%;
+}
+
+.imitate-search-bar-block .close-btn {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 36px;
+  height: 36px;
+}
+
+.search-input {
+  height: 100%;
+}
+
+
+button:after {
+  border: none;
 }
