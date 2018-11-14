@@ -357,9 +357,13 @@ Page({
    * 点击个人图标，跳转个人中心
    */
   movetoPerson: function() {
-    wx.navigateTo({
+    console.log(11)
+    wx.switchTab({
       url: '/pages/person/person'
     })
+    // wx.navigateTo({
+    //   url: '/pages/person/person'
+    // })
   }
 
 })
