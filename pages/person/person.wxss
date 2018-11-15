@@ -6,3 +6,40 @@
 .log-item {
   margin: 10rpx;
 }
+/* .content {
+  text-align: center;
+} */
+
+.userInfo {
+  height: 323rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items:center;
+  margin-bottom: 12rpx;
+  background: #fff; 
+}
+.userInfo .user-head {
+  height: 120rpx;
+  width: 120rpx;
+  border-radius: 50%;
+}
+.userInfo .user-name {
+  margin: 11rpx 0;
+  font-size: 36rpx;
+  color: #333;
+}
+.userInfo .user-phone {
+  color: #666;
+  font-size: 24rpx;
+}
+
+.layout-btn{
+  height: 100rpx;
+  background: #fff;
+  display: flex;
+  justify-content: center; 
+  align-items: center;  
+  color: #4D8AD7;
+  font-size:28rpx;
+}

@@ -1,12 +1,16 @@
 <!--person.wxml-->
-<view class="container log-list">
-  个人中心
-  <view class="">
+<view class="content">
+  <!-- <view class="">
     用户名：{{username}}
   </view>
   <view class="">
-    密码：{{password}}
+    welcome！！！
+  </view> -->
+
+  <view class="userInfo">
+    <image class='user-head' src='../../images/anonymous.jpeg'/>
+    <view class='user-name'>用户名：{{username}}</view>
   </view>
 
-  <button bindtap="changeUser">切换账号</button>
+  <view class='layout-btn' bindtap='logout'>退出登录</view>
 </view>

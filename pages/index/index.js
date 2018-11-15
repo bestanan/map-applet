@@ -2,6 +2,7 @@
 import request from '../../utils/request';
 import config from '../../utils/config';
 let qqmapsdk = config.qqmapsdk;
+const app = getApp();
 
 Page({
   // 页面的初始数据
@@ -354,10 +355,24 @@ Page({
    * 点击个人图标，跳转个人中心
    */
   toPerson: function() {
-    console.log(11)
-    wx.navigateTo({
-      url: '/pages/person/person'
-    })
+    console.log('loginStatus', app.globalData.loginStatus);
+    if(!app.globalData.loginStatus) {
+      wx.showModal({
+        title: '提示',
+        content: '请先登录~',
+        success: (res) => {
+          if (res.confirm) {
+            wx.navigateTo({
+              url: '/pages/login/login'
+            })
+          }
+        }
+      })
+    } else {
+      wx.navigateTo({
+        url: '/pages/person/person'
+      })
+    }
   }
 
 })

@@ -1,25 +1,28 @@
 //person.js
+const app = getApp();
+
 Page({
   data: {
     logs: []
   },
   onLoad: function () {
     let username = wx.getStorageSync('username');
-    let password = wx.getStorageSync('password');
     console.log('username', username)
-    console.log('password', password)
     this.setData({
-      username: username,
-      password: password
+      username: username
     })
   },
 
   /**
-   * 切换账号，跳转到登录页面
+   * 退出登录
    */
-  changeUser: function() {
-    wx.navigateTo({
-      url: '/pages/login/login'
+  logout: function() {
+    app.globalData.loginStatus = 0;
+    wx.removeStorage({
+      key: 'username'
+    })
+    wx.reLaunch({
+      url: '/pages/index/index'
     })
   }
 

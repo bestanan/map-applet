@@ -65,7 +65,6 @@ Page({
     let url = '/mock/5be8f089b2a43e6eaa87c1bf/maptest/loginIn';
     let obj = {
       username: username,
-      password: password
     }
     request.postRequest(url, obj)
       .then(res => {
@@ -74,9 +73,26 @@ Page({
         if(code == 200) {
           console.log('登录成功');
           wx.setStorageSync('username', username);
-          wx.setStorageSync('password', password);
           //登录成功则跳转到地图页
-          wx.reLaunch({ url: '/pages/index/index' });
+          wx.setStorage({
+            key: "loginStatus",
+            data: 1,
+            key: "username",
+            data: username
+          })
+          app.globalData.loginStatus = 1;
+          console.log(app.globalData.loginStatus)
+          // wx.redirectTo({
+          //   url: '/pages/person/person'
+          // })
+          setTimeout(()=>{
+            wx.reLaunch({
+              url: '/pages/index/index'
+            })
+          },500)
+
+
+          // wx.reLaunch({ url: '/pages/index/index' });
           // wx.redirectTo({ url: '/pages/index/index' });
           //关闭loading
           util.hideLoading();
