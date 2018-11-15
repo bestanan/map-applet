@@ -1,11 +1,15 @@
 import config from '../../utils/config';
+import util from '../../utils/util';
 let qqmapsdk = config.qqmapsdk;
 
 Page({
   data: {
-    hidden: true,
     searchValue: '',
-    searchStorage: []
+    histories: [],
+    pois: [], //地点
+    stations: [],  //车站
+    metro: [], //地铁
+    noSearchResult: false
   },
   onLoad: function () {
     let that = this;
@@ -16,27 +20,60 @@ Page({
   bindSearch: function(e) {
     let that = this;
     if(e) {
-      let value = e.detail.value;
+      let value = e.detail.value.searchValue;
+      console.log('关键字', value)
       that.setData({
-        hidden: true,
         searchValue: value
       })
       if(value != '') {
+        util.showLoading('加载中');
         qqmapsdk.getSuggestion({
           keyword: value,
           region: '深圳市',
           region_fix: 0,
           policy: 0,
           success: function(res) {
-            console.log('搜索结果',res.data);
-            that.setData({
-              result: res.data
-            })
+            let data = res.data;
+            console.log('搜索结果',data);
+            if(data.length > 0) {
+              let pois = [];
+              let stations = [];
+              let metro = [];
+              data.forEach((element) => {
+                if(element.type == 0 || element.type == 4) {
+                  pois.push(element);
+                } else if(element.type == 1 || element.type == 3) {
+                  stations.push(element);
+                } else {
+                  metro.push(element);
+                }
+              })
+              console.log('pois', pois)
+              console.log('stations', stations)
+              console.log('metro', metro)
+              that.setData({
+                noSearchResult: false,
+                pois: pois,
+                stations: stations,
+                metro: metro
+              })
+              console.log('noSearchResult', that.data.noSearchResult)
+            } else {
+              that.setData({
+                noSearchResult: true,
+                pois: [],
+                stations: [],
+                metro: []
+              })
+            }
+            util.hideLoading();
           },
           fail: function(res) {
             console.log(res);
           }
         });
+      } else {
+        return;
       }
     }
   },
@@ -56,9 +93,10 @@ Page({
     let title = dataset.title;
     let address = dataset.address;
     let location = dataset.location;
+    let type = dataset.type;
     let lat = location.lat;
     let lng = location.lng; 
-    this.setSearchStorage(id, title, address, lat, lng);
+    this.setSearchStorage(id, title, address, lat, lng, type);
     let pages = getCurrentPages();
     let prevPage = pages[pages.length - 2];  //上一个页面
     let delat = pages.length + 1;
@@ -73,7 +111,7 @@ Page({
   },
 
   //写入缓存-搜索历史记录
-  setSearchStorage: function(id, title, address, lat, lng) {
+  setSearchStorage: function(id, title, address, lat, lng, type) {
     let that = this;
     let obj = {
       id: id,
@@ -82,11 +120,12 @@ Page({
       location: {
         lat: lat, 
         lng: lng
-      }
+      },
+      type: type
     }
-    let searchStorage = that.data.searchStorage;
-    searchStorage.push(obj);
-    wx.setStorageSync('history', searchStorage);
+    let histories = that.data.histories;
+    histories.push(obj);
+    wx.setStorageSync('history', histories);
   },
 
   //获取缓存-搜索历史记录
@@ -100,9 +139,7 @@ Page({
           let uniqueData = that.unique(data);
           console.log('history', uniqueData)
           that.setData({
-            hidden: false,
-            searchStorage: uniqueData,
-            result: uniqueData.reverse()
+            histories: uniqueData.reverse(),
           })
         }
       } 
@@ -124,8 +161,7 @@ Page({
             key: 'history',
             success (res) {
               that.setData({
-                hidden: true,
-                result: []
+                histories: []
               })
             },
             fail (res) {
@@ -133,9 +169,6 @@ Page({
             }
           })
         } else if (res.cancel) {
-          that.setData({
-            hidden: false
-          })
           console.log('用户点击取消')
         }
       }
