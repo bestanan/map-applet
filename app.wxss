@@ -9,6 +9,7 @@
   box-sizing: border-box;
 }
 
+
 .relative {
   position: relative;
 }
@@ -25,6 +26,9 @@
   background-color: #0082dc;
 }
 
+.bg-blue2 {
+  background-color: #4D8AD7
+}
 
 .fg-black {
   color: #000000;

@@ -1,7 +1,7 @@
 .container{
   position: relative;
   width: 100%;
-  height: calc(100vh - 52px);
+  height: 100vh;
 }
 .map {
   position: absolute;
@@ -13,49 +13,7 @@
   height: 100%;
   z-index: 1;
 }
-/* 搜索框 */
-.search-bar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 999;
-  padding: 8px 10px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: flex;
-  box-sizing: border-box;
-  background-color: #efeff4;
-  border-top: 1rpx solid #d7d6dc;
-  border-bottom: 1rpx solid #d7d6dc;
-}
-.search-bar_form {
-  position: relative;
-  -webkit-box-flex: 1;
-  -webkit-flex: auto;
-  flex: auto;
-  border-radius: 5px;
-  background: #fff;
-  border: 1rpx solid #e6e6ea;
-}
-.search-bar_box {
-  position: relative;
-  padding-left: 30px;
-  padding-right: 30px;
-  width: 100%;
-  box-sizing: border-box;
-  z-index: 1;
-}
-.icon-search_in-box {
-  position: absolute;
-  left: 10px;
-  top: 7px;
-}
-.search-bar_input {
-  height: 28px;
-  line-height: 28px;
-  font-size: 14px;
-}
+
 /* 中心标记点 */
 .center {
   width:32px;
@@ -64,20 +22,49 @@
   position: relative;
   top: calc( 50% - 40px );
 }
-/* 触发定位当前位置到地图中心 */
+
+/* 搜索按钮 */
+.searchbtn {
+  width: 120rpx;
+  height: 120rpx;
+  position: absolute;
+  bottom: 300rpx;
+  left: 20rpx;
+}
+
+.searchbtn cover-image {
+  width: 120rpx;
+  height: 120rpx;
+}
+
+/* 复位按钮 */
 .location {
-  width: 80rpx;
-  height: 80rpx;
+  width: 120rpx;
+  height: 120rpx;
   position: absolute;
   bottom: 210rpx;
   left: 20rpx;
-  background: #fff;
-  border-radius: 50%;
 }
+
 .location cover-image {
-  width: 80rpx;
-  height: 80rpx;
+  width: 120rpx;
+  height: 120rpx;
 }
+
+/* user按钮 */
+.person {
+  width: 144rpx;
+  height: 144rpx;
+  position: absolute;
+  bottom: 210rpx;
+  right: 0;
+}
+
+.person cover-image {
+  width: 144rpx;
+  height: 144rpx;
+}
+
 /* 详细位置展示 */
 .address{
   position: absolute;
@@ -92,104 +79,28 @@
   align-items: center;
   bottom: 60rpx;
 }
+
 .address-desc{
   font-size: 26rpx;  
   height: 80rpx;
 }
+
 .address-desc .blur{
   font-size: 30rpx;
   color: #333333;
 }
+
 .address-desc .detailed{
   padding-top: 10rpx;
     color: #c7c7c7;
 }
+
 .address-btn{
   flex: 1;
   text-align: center;
   color: #666666;
 }
-/* 个人图标 */
-.person {
-  width: 80rpx;
-  height: 80rpx;
-  position: absolute;
-  bottom: 210rpx;
-  right: 20rpx;
-  background: #fff;
-  border-radius: 50%;
-}
-.person cover-image {
-  width: 80rpx;
-  height: 80rpx;
-}
 
-
-
-
-/* 顶部搜索框 */
-.top-bar {
-  height: 52px;
-  overflow: hidden;
-  display: flex;
-  flex-direction: row;
-  z-index: 1;
-}
-
-.top-imitate-search-bar {
-  flex: 1;
-  padding: 8px 8px 8px 16px;
-}
-
-.search-content {
-    position: relative;
-}
-
-.imitate-search-bar-block {
-  outline: none;
-  border-radius: 18px;
-  font-size: 14px;
-  padding: 0 36px;
-  height: 36px;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  position: relative;
-  background: #f0f0f5;
-}
-
-.search-icon {
-  position: absolute;
-  top: 6px;
-  left: 8px;
-  z-index: 2;
-  width: 24px;
-  height: 24px;
-}
-
-.imitate-search-bar-block .close-icon {
-  position: absolute;
-  top: 12px;
-  right: 14px;
-  z-index: 2;
-  width: 12px;
-  height: 12px;
-  background: #aaaaaa;
-  border-radius: 50%;
-}
-
-.imitate-search-bar-block .close-btn {
-  position: absolute;
-  right: 0;
-  top: 0;
-  width: 36px;
-  height: 36px;
-}
-
-.search-input {
-  height: 100%;
-}
-
-
-button:after {
+/* button:after {
   border: none;
-}
+} */

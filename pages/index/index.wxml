@@ -1,27 +1,5 @@
 <!--地图页-->
-<form class="relative bg-white" bindsubmit="goSearch" reportSubmit="true">
-  <button formType="submit" hoverClass="none" style="overflow: visible">
-    <view class="top-imitate-search-bar">
-      <view class="search bg-common flex-column-center imitate-search-bar-block f-15 fg-black">
-        <image class="search-icon" src="../../images/search.png"></image>
-        <view class="f-12 fg-a">搜索公交线路、车站、地点</view>
-      </view>
-    </view>
-  </button>
-</form>
-
 <view class="container">
-  <!-- 搜索框开始 -->
-  <!-- <view class="search-bar">
-    <view class="search-bar_form">
-      <view class="search-bar_box">
-        <icon class="icon-search_in-box" type="search" size="14"></icon>
-        <input type="text" class="search-bar_input" placeholder="查找地点、公交、地铁" value="{{searchValue}}" bindtouchstart="goSearch" />
-      </view>
-    </view>
-  </view> -->
-
-  <!-- 搜索结束 -->
   <!-- 地图显示开始 -->
   <map
     class="map" 
@@ -39,9 +17,14 @@
       <cover-image style="" src="../../images/marker.png"></cover-image>
     </cover-view>
 
+    <!-- 搜索按钮 -->
+    <cover-view class="searchbtn" bindtap="toSearch">
+      <cover-image style="" src="../../images/icon_search.png"></cover-image>
+    </cover-view>
+
     <!-- 将地图中心移动到当前定位点 -->
-    <cover-view class="location" bindtap="movetoPosition">
-      <cover-image style="" src="../../images/location.png"></cover-image>
+    <cover-view class="location" bindtap="toPosition">
+      <cover-image style="" src="../../images/new_pos.png"></cover-image>
     </cover-view>
 
     <!-- 展示详细地址 -->
@@ -65,8 +48,8 @@
     </cover-view>
 
     <!-- 个人中心图标 -->
-    <cover-view class="person" bindtap="movetoPerson">
-      <cover-image style="" src="../../images/person.png"></cover-image>
+    <cover-view class="person" bindtap="toPerson">
+      <cover-image style="" src="../../images/personal_center.png"></cover-image>
     </cover-view>
   </map>
   <!-- 地图显示结束 -->

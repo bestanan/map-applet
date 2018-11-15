@@ -114,7 +114,7 @@ Page({
     let that = this;
     wx.showModal({
       title: '',
-      content: '清空历史记录？',
+      content: '确定清空记录？',
       confirmText: '立即清空',
       confirmColor: '#4D8AD7',
       cancelColor: '#999',
@@ -125,16 +125,17 @@ Page({
             success (res) {
               that.setData({
                 hidden: true,
-                // searchStorage: [],
                 result: []
               })
-              console.log('remove', res)
             },
             fail (res) {
               console.log('清除缓存失败', res)
             }
           })
         } else if (res.cancel) {
+          that.setData({
+            hidden: false
+          })
           console.log('用户点击取消')
         }
       }

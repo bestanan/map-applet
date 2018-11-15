@@ -8,7 +8,7 @@ Page({
   data: {
     longitude: 0, //经度 
     latitude: 0,  //纬度 
-    scale: 16, //缩放级别，取值范围为5-18
+    scale: 18, //缩放级别，取值范围为5-18
     markers: [], //标记
     polyline: [], //路线
     searchValue: '',
@@ -207,7 +207,7 @@ Page({
   },
 
   // 定位函数，将地图中心移动到当前定位点
-  movetoPosition: function() {
+  toPosition: function() {
     this.mapCtx.moveToLocation();
   },
 
@@ -234,14 +234,10 @@ Page({
   },
 
   //点击搜索框跳转搜索页
-  goSearch: function() {
+  toSearch: function() {
     let url = '/pages/search/search';
     wx.navigateTo({ url });
-    // wx.redirectTo({
-    //   url: url,
-    // })
   },
-
 
   /**
    * 数据请求-获取标记点数组
@@ -357,7 +353,7 @@ Page({
   /**
    * 点击个人图标，跳转个人中心
    */
-  movetoPerson: function() {
+  toPerson: function() {
     console.log(11)
     wx.navigateTo({
       url: '/pages/person/person'
