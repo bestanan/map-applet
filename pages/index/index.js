@@ -286,37 +286,52 @@ Page({
    * 点击打卡
    */
   clockInOut: function(e) {
-    console.log('打卡请求', e)
-    let that = this;
-    let dataset = e.currentTarget.dataset;
-    let title = dataset.title;
-    let address = dataset.address;
-    let lat = dataset.clocklat;
-    let lng = dataset.clocklng;
-    let curtimeStamp = + new Date();
-    //需要传递给后台的请求参数
-    let opt = {
-      userId: '',  //微信用户id String openid 用户的唯一标识
-      title: title, //地名 String
-      address: address, //具体地址 String
-      lat: lat, //纬度 Number
-      lng: lng, //经度 Number
-      create_time: curtimeStamp //打卡当前时间戳 Number
-    }
-    wx.showModal({
-      title: '打卡签到',
-      content: `地址：${title}`,
-      confirmText: '打卡',
-      confirmColor: '#4D8AD7',
-      cancelColor: '#999',
-      success (res) {
-        if (res.confirm) {
-          // that.clockRequest(opt);
-        } else if (res.cancel) {
-          console.log('用户点击取消')
+    //登录才可打卡
+    if(!app.globalData.loginStatus) {
+      wx.showModal({
+        title: '提示',
+        content: '请先登录~',
+        success: (res) => {
+          if (res.confirm) {
+            wx.navigateTo({
+              url: '/pages/login/login'
+            })
+          }
         }
+      })
+    } else {
+      console.log('打卡请求', e)
+      let that = this;
+      let dataset = e.currentTarget.dataset;
+      let title = dataset.title;
+      let address = dataset.address;
+      let lat = dataset.clocklat;
+      let lng = dataset.clocklng;
+      let curtimeStamp = + new Date();
+      //需要传递给后台的请求参数
+      let opt = {
+        userId: '',  //微信用户id String openid 用户的唯一标识
+        title: title, //地名 String
+        address: address, //具体地址 String
+        lat: lat, //纬度 Number
+        lng: lng, //经度 Number
+        create_time: curtimeStamp //打卡当前时间戳 Number
       }
-    })
+      wx.showModal({
+        title: '打卡签到',
+        content: `地址：${title}`,
+        confirmText: '打卡',
+        confirmColor: '#4D8AD7',
+        cancelColor: '#999',
+        success (res) {
+          if (res.confirm) {
+            // that.clockRequest(opt);
+          } else if (res.cancel) {
+            console.log('用户点击取消')
+          }
+        }
+      })
+    }
   },
 
   /**

@@ -20,7 +20,8 @@ Page({
   bindSearch: function(e) {
     let that = this;
     if(e) {
-      let value = e.detail.value.searchValue;
+      let value = e.detail.value.searchValue || e.detail.value;
+      // let value = e.detail.value;
       console.log('关键字', value)
       that.setData({
         searchValue: value
@@ -40,11 +41,12 @@ Page({
               let stations = [];
               let metro = [];
               data.forEach((element) => {
-                if(element.type == 0 || element.type == 4) {
+                //type为POI类型，值说明：0:普通POI / 1:公交车站 / 2:地铁站 / 3:公交线路 / 4:行政区划（打印看到还有5的，为地铁线，但官方没有指明，待确定）
+                if(element.type == 0 || element.type == 4) { //归为地点
                   pois.push(element);
-                } else if(element.type == 1 || element.type == 3) {
+                } else if(element.type == 1 || element.type == 3) { //归为公交
                   stations.push(element);
-                } else {
+                } else {  //其他的归为地铁
                   metro.push(element);
                 }
               })
@@ -57,7 +59,7 @@ Page({
                 stations: stations,
                 metro: metro
               })
-              console.log('noSearchResult', that.data.noSearchResult)
+              // console.log('noSearchResult', that.data.noSearchResult)
             } else {
               that.setData({
                 noSearchResult: true,
@@ -79,10 +81,14 @@ Page({
   },
 
   // 清空搜索框内容
-  searchClear: function(e) {
+  clearInput: function(e) {
     let that = this;
     that.setData({
-      searchValue: ''
+      searchValue: '',
+      noSearchResult: false,
+      pois: [],
+      stations: [],
+      metro: []
     })
   },
 
@@ -135,6 +141,7 @@ Page({
       key: 'history',
       success (res) {
         let data = res.data;
+        console.log('jieguo', data)
         if(data.length > 0) {
           let uniqueData = that.unique(data);
           console.log('history', uniqueData)

@@ -6,9 +6,10 @@
       <view class="imitate-search-bar-block f-15 fg-black">
         <image class="search-icon" src="../../images/search.png"></image>
         <!-- <input autoFocus bindblur="bindSearch" class="search-input" confirmType="search" name="searchValue" placeholder="搜索地点、公交、地铁" placeholderClass="fg-a f-12" type="text" value="{{searchKey}}"></input> -->
-        <input autoFocus class="search-input" confirmType="search" name="searchValue" placeholder="搜索地点、公交、地铁" placeholderClass="fg-a f-12" type="text" value="{{searchKey}}"></input>
+        <input autoFocus class="search-input" confirmType="search" name="searchValue" placeholder="搜索地点、公交、地铁" 
+          placeholderClass="fg-a f-12" type="text" value="{{searchValue}}" bindconfirm="bindSearch"></input>
         <view catchtap="clearInput" class="close-btn">
-            <image class="close-icon" hidden="{{!searchKey}}" src="../../images/close_white.png"></image>
+            <image class="close-icon" hidden="{{!searchValue}}" src="../../images/close_white.png"></image>
         </view>
       </view>
     </view>
@@ -23,26 +24,27 @@
     <view class="f-18">你可以搜索</view>
     <view class="search-type f-10">
       <view class="search-type-item">
-        <image src="../../images/locale_ic@2x.png"></image>
+        <image src="../../images/pois.png"></image>
         <text>地点</text>
       </view>
       <view class="search-type-item">
-        <image src="../../images/bus_stop_ic@2x.png"></image>
+        <image src="../../images/stations.png"></image>
         <text>公交</text>
       </view>
       <view class="search-type-item">
-        <image src="../../images/line_ic@2x.png"></image>
+        <image src="../../images/metro.png"></image>
         <text>地铁</text>
       </view>
     </view>
   </view>
 
   <!-- 搜索列表 -->
+  <!-- 地点 -->
   <block wx:if="{{pois.length>0}}">
     <view class="search-line-title fg-a bg-fb f-12">地点</view>
     <view bindtap="redirectPage" class="search-line bg-white fg-black text-ellipsis" wx:for="{{pois}}" wx:key="{{item.id}}" bindtap="getAddress" 
       data-id="{{item.id}}" data-title="{{item.title}}" data-address="{{item.address}}" data-location="{{item.location}}" data-type="{{item.type}}">
-      <image class="search-item-bus" src="../../images/seach_locale_ic@2x.png"></image>
+      <image class="search-item-bus" src="../../images/pois1.png"></image>
       <view class="content">
         <text class="content-name">{{item.title}}</text>
         <text class="content-detail">{{item.address}}</text>
@@ -51,11 +53,12 @@
     </view>
   </block>
 
+  <!-- 车站 -->
   <block wx:if="{{stations.length>0}}">
     <view class="search-line-title fg-a bg-fb f-12">公交</view>
     <view bindtap="redirectPage" class="search-line bg-white fg-black text-ellipsis" wx:for="{{stations}}" wx:key="{{item.id}}" bindtap="getAddress" 
       data-id="{{item.id}}" data-title="{{item.title}}" data-address="{{item.address}}" data-location="{{item.location}}" data-type="{{item.type}}">
-      <image class="search-item-bus" src="../../images/seach_line_ic@2x.png"></image>
+      <image class="search-item-bus" src="../../images/stations1.png"></image>
       <view class="content">
         <text class="content-name">{{item.title}}</text>
         <text class="content-detail">{{item.address}}</text>
@@ -64,11 +67,12 @@
     </view>
   </block>
 
+  <!-- 地铁 -->
   <block wx:if="{{metro.length>0}}">
     <view class="search-line-title fg-a bg-fb f-12">地铁</view>
     <view bindtap="redirectPage" class="search-line bg-white fg-black text-ellipsis" wx:for="{{metro}}" wx:key="{{item.id}}" bindtap="getAddress" 
       data-id="{{item.id}}" data-title="{{item.title}}" data-address="{{item.address}}" data-location="{{item.location}}" data-type="{{item.type}}">
-      <image class="search-item-bus" src="../../images/seach_line_ic@2x.png"></image>
+      <image class="search-item-bus" src="../../images/metro1.png"></image>
       <view class="content">
         <text class="content-name">{{item.title}}</text>
         <text class="content-detail">{{item.address}}</text>
@@ -81,11 +85,12 @@
   <view class="have-recent bg-white" wx:if="{{histories.length>0&&pois.length<1&&stations.length<1&&metro.length<1&&!noSearchResult}}">
     <view class="search-line-title fg-a bg-fb f-12">搜索历史</view>
     <ul>
-      <li class="bb have-recent-item f-15 fg-3 text-ellipsis" wx:for="{{histories}}" wx:key="{{item.id}}">
+      <li class="bb have-recent-item f-15 fg-3 text-ellipsis" wx:for="{{histories}}" wx:key="{{item.id}}" bindtap="getAddress" 
+        data-id="{{item.id}}" data-title="{{item.title}}" data-address="{{item.address}}" data-location="{{item.location}}" data-type="{{item.type}}">
         <view class="flex-auto text-ellipsis" >
-          <image class="search-item-bus" src="../../images/seach_locale_ic@2x.png" wx:if="{{item.type===0 || item.type===4 }}"></image>
-          <image class="search-item-bus" src="../../images/seach_line_ic@2x.png" wx:if="{{item.type===1 || item.type===3}}"></image>
-          <image class="search-item-bus" src="../../images/seach_stop_ic@2x.png" wx:if="{{item.type===2 || item.type===5}}"></image>
+          <image class="search-item-bus" src="../../images/pois1.png" wx:if="{{item.type===0 || item.type===4 }}"></image>
+          <image class="search-item-bus" src="../../images/stations1.png" wx:if="{{item.type===1 || item.type===3}}"></image>
+          <image class="search-item-bus" src="../../images/metro1.png" wx:if="{{item.type===2 || item.type===5}}"></image>
           <view class="content">
             <text class="content-name">{{item.title}}</text>
             <text class="content-detail">{{item.address}}</text>
@@ -97,10 +102,10 @@
     <view bindtap="removeSearchStorage" class="search-history-clear bg-white text-center fg-6 f-14">清空搜索历史</view>
   </view>
 
-    
-    <view class="no-search-result-container" wx:if="{{noSearchResult}}">
-        <image class="none-search-pic" src="https://cdn.www.chelaile.net.cn/web_active/wmp/newimages/search_none_ic@2x.png"></image>
-        <div class="f-14 fg-a lh-20">没有找到合适的结果</div>
-    </view>
+  <!-- 未搜索到结果 -->
+  <view class="no-search-result-container" wx:if="{{noSearchResult}}">
+      <image class="none-search-pic" src="https://cdn.www.chelaile.net.cn/web_active/wmp/newimages/search_none_ic@2x.png"></image>
+      <div class="f-14 fg-a lh-20">没有找到合适的结果</div>
+  </view>
 </view>
 

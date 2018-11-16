@@ -4,7 +4,9 @@ let request = {
    * 网络请求
    */
   request: function(url, data, method) {
-    // let server = ''; //正式域名
+    // let server = ''; //生产地址
+    // let server = 'http://192.168.8.208:30759'; //测试地址
+    // '/login/loginManager?loginName=liujie&loginPwd=bmat-password'
     let server = 'https://www.easy-mock.com'; //测试域名（暂用easy mock模拟数据请求）
     return new Promise((resolve, reject) => {
       wx.request({
