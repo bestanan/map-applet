@@ -16,35 +16,41 @@
 *示意图（页面样式全部更新）*  
 *图0：地图定位首页（参考了摩拜单车、滴滴打车、小黄车等小程序及高德地图、腾讯地图等app）*  
 
-![image](https://github.com/vedaAngie/wechat-map-applet-angie/blob/master/images/example0.jpg)  
+![image](https://github.com/vedaAngie/wechat-map-applet-angie/blob/master/images/example0.png)  
 
 
 *图1：搜索页缺省页面*  
 
-![image](https://github.com/vedaAngie/wechat-map-applet-angie/blob/master/images/example1.jpg)
+![image](https://github.com/vedaAngie/wechat-map-applet-angie/blob/master/images/example1.png)
   
   
 *图2：地图搜索列表页（参考了车来了小程序的搜索页，个人很喜欢车来了的整体风格~）*  
 
-![image](https://github.com/vedaAngie/wechat-map-applet-angie/blob/master/images/example2.jpg)
+![image](https://github.com/vedaAngie/wechat-map-applet-angie/blob/master/images/example2.png)
 
 
 *图3：搜索历史记录列表页*  
 
-![image](https://github.com/vedaAngie/wechat-map-applet-angie/blob/master/images/example3.jpg)
+![image](https://github.com/vedaAngie/wechat-map-applet-angie/blob/master/images/example3.png)
 
 
 *图4：打卡和个人中心都会提示先登录（账号密码暂时可以随便填；如果登陆不上请打开右上角小圆点打开调试）*  
 
-![image](https://github.com/vedaAngie/wechat-map-applet-angie/blob/master/images/example4.jpg)
+![image](https://github.com/vedaAngie/wechat-map-applet-angie/blob/master/images/example4.png)
 
 
 *图5：登录页面（目前还有点丑，之后会优化）*  
 
-![image](https://github.com/vedaAngie/wechat-map-applet-angie/blob/master/images/example5.jpg)
+![image](https://github.com/vedaAngie/wechat-map-applet-angie/blob/master/images/example5.png)
 
 
 *图6：个人中心页面，可以注销登录*  
 
-![image](https://github.com/vedaAngie/wechat-map-applet-angie/blob/master/images/example6.jpg)
+![image](https://github.com/vedaAngie/wechat-map-applet-angie/blob/master/images/example6.png)
+
+
+*图7：无搜索记录缺省页*  
+
+![image](https://github.com/vedaAngie/wechat-map-applet-angie/blob/master/images/example7.png)
+
 
