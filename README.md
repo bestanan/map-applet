@@ -1,5 +1,5 @@
-# wechat-map-applet-angie
-微信小程序开发实例
+# map-applet
+微信小程序开发实战项目
 
 
 **实现的功能点：**  
